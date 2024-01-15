@@ -13,37 +13,55 @@
 <body>
 <div id="app">
    <div class="product">
+
       <div class="product-image">
          <img v-bind:src="image" :alt="altText"/>
       </div>
+
       <div class="product-info">
+         <h1>{{ title }}</h1>
+
          <h1>{{ product }}</h1>
+
          <p>{{ description }}</p>
+
          <p v-if="onSale">On Sale</p>
+
          <span v-if="inStock">In Stock</span>
+
          <p v-else>Out of Stock</p>
+
          <ul>
             <li v-for="detail in details">{{ detail }}</li>
          </ul>
+
          <div
-            class="color-box"
-            v-for="variant in variants"
-            :key="variant.variantId"
-            :style="{ backgroundColor:variant.variantColor }"
-            @mouseover="updateProduct(variant.variantImage)">
-            </div>         
-         <div v-for="sizes in sizes" :key="sizes.sizesId">
-            <li>{{ sizes }}</li>
+         class="color-box"
+         v-for="(variant, index) in variants"
+         :key="variant.variantId"
+         :style="{ backgroundColor:variant.variantColor }"
+         @mouseover="updateProduct(index)">
          </div>
+
+         <div v-for="sizes in sizes" :key="sizes.sizesId">
+            <ul>
+               <li>{{ sizes }}</li>
+            </ul>
+         </div>
+
          <div class="cart">
             <p>Cart({{ cart }})</p>
          </div>
+
+         <div class="buttons">
          <button v-on:click="addToCart"
          :disabled="!inStock"
          :class="{ disabledButton: !inStock}" >
             Add to cart
          </button>
          <button v-on:click="removeToCart">Remove to Cart</button>
+         </div>
+
          <a v-bind:href="link"> More products like this</a>        
       </div>   
    </div>
