@@ -18,4 +18,3 @@ let app = new Vue({
         ]
     }
 })
-
