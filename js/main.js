@@ -1,6 +1,9 @@
 let app = new Vue({
     el: '#app',
     data: {
+    onSale: true,
+    description: "A pair of warm, fuzzy socks.",
+    link: "https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=socks",
     product: "Socks",
     image: "../img/vmSocks-green-onWhite.jpg",
     altText: "A pair of socks",
@@ -15,6 +18,7 @@ let app = new Vue({
         variantId: 2235,
         variantColor: 'blue'
         }
-        ]
+        ],
+        sizes: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL']
     }
 })
