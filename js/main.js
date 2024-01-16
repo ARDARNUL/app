@@ -20,22 +20,49 @@ Vue.component('product-tabs', {
             </ul>
         </div>
         <div v-show="selectedTab === 'Make a Review'">
-        <product-review
-@review-submitted="addReview"></product-review>
-    </div>
+        <div>
+             <product-review @review-submitted="addReview"></product-review>
+        </div>
+        </div>
+        <div v-show="selectedTab === 'Shipping'">
+            <p>Shipping: {{ shipping }}</p>
+        </div>
+        <div v-show="selectedTab === 'Details'">
+        <ul>
+            <li v-for="detail in details">{{ detail }}</li>
+        </ul>
+        </div>
 </div>
     `,
     data() {
     return {
-    tabs: ['Reviews', 'Make a Review'],
+    tabs: ['Reviews', 'Make a Review', 'Shipping', 'Details'],
     selectedTab: 'Reviews' 
     }
-    }
+    },
+    props: {
+        reviews: {
+        type: Array,
+        required: false
+        },
+        details:{
+            type: Array
+        },
+        shipping: {
+            type: undefined
+        }
+        },
+        methods:{
+            addReview(productReview) {
+                this.reviews.push(productReview)
+            },
+        
+        }
 })
 
 Vue.component('product-details', {
     props:  {
-        details: {
+            details: {
             type: Array,
             required: true
         },
@@ -180,11 +207,10 @@ Vue.component('product', {
                     <p>You recomend me?: {{review.recomend}}</p>
                     </li>
                 </ul>
-                </div> <product-review
-@review-submitted="addReview"></product-review>
-            </div>
-
-             <a v-bind:href="link"> More products like this</a>    
+                <a v-bind:href="link"> More products like this</a> 
+                </div> 
+            </div>   
+            <product-tabs :details="details" :shipping="shipping" :reviews="reviews"></product-tabs>
              </div>
         </div>
     </div>
@@ -225,11 +251,7 @@ Vue.component('product', {
         reviews: []
     }
     },
-    methods: {         
-        addReview(productReview) {
-            this.reviews.push(productReview)
-        },
-        
+    methods: {              
         addToCart() {
             this.$emit('add-to-cart',
             this.variants[this.selectedVariant].variantId);
