@@ -15,6 +15,7 @@ Vue.component('product-tabs', {
                 <p>{{ review.name }}</p>
                 <p>Rating: {{ review.rating }}</p>
                 <p>{{ review.review }}</p>
+                <p>You recomend me?: {{ review.recomend }}</p>
                 </li>
             </ul>
         </div>
@@ -82,13 +83,13 @@ Vue.component('product-details', {
     <p>You recomend me?</p>
 
     <div class="recomend">
-	    <input type="radio" name="radio" value="1">
-	    <label for="radio-3">Yes!</label>
+	    <input type="radio" v-model="recomend" id="recomend" for="recomend" name="radio" value="Yes!">
+	    <label for="recomend">Yes!</label>
     </div>
 
     <div class="recomend">
-        <input type="radio" name="radio" value="2">
-        <label for="radio-3">No!</label>
+        <input type="radio" v-model="recomend" id="recomend" for="recomend" name="radio" value="No!">
+        <label for="recomend">No!</label>
     </div>
 
     <p>
@@ -176,6 +177,7 @@ Vue.component('product', {
                     <p>{{ review.name }}</p>
                     <p>Rating: {{ review.rating }}</p>
                     <p>{{ review.review }}</p>
+                    <p>You recomend me?: {{review.recomend}}</p>
                     </li>
                 </ul>
                 </div> <product-review
