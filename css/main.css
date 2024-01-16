@@ -89,3 +89,25 @@ textarea {
     gap: 10px;
     margin-bottom: 20px;
 }
+
+.Maincart{
+    border: 1px solid black;
+    gap: 10px;
+}
+
+.cartButton{
+    margin-top: 30px;
+    border: none;
+    background-color: #1E95EA;
+    color: white;
+    height: 20px;
+    width: 50px;
+    font-size: 14px;
+}
+
+.goodCart{
+    border-radius: 5px;
+    border: 2px solid gray;
+    margin: 2px;
+    padding: 2px;
+}

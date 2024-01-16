@@ -195,23 +195,9 @@ Vue.component('product', {
             </button>
             <button v-on:click="removeToCart">Remove to Cart</button>
              </div>
-             <div>
-                <h2>Reviews</h2>
-                <p v-if="!reviews.length">There are no reviewsyet.</p>
-
-                <ul>
-                    <li v-for="review in reviews">
-                    <p>{{ review.name }}</p>
-                    <p>Rating: {{ review.rating }}</p>
-                    <p>{{ review.review }}</p>
-                    <p>You recomend me?: {{review.recomend}}</p>
-                    </li>
-                </ul>
                 <a v-bind:href="link"> More products like this</a> 
-                </div> 
             </div>   
             <product-tabs :details="details" :shipping="shipping" :reviews="reviews"></product-tabs>
-             </div>
         </div>
     </div>
     `,
@@ -237,6 +223,7 @@ Vue.component('product', {
         variants: [
             {
                 variantId: 2234,
+
                 variantColor: 'green',
                 variantImage: "../img/vmSocks-green-onWhite.jpg",
                 variantQuantity: 10
@@ -245,26 +232,33 @@ Vue.component('product', {
                 variantId: 2235,
                 variantColor: 'blue',
                 variantImage: "../img/vmSocks-blue-onWhite.jpg",
-                variantQuantity: 0
+                variantQuantity: 10
             }
         ], 
-        reviews: []
+        reviews: [],
     }
     },
     methods: {              
         addToCart() {
             this.$emit('add-to-cart',
-            this.variants[this.selectedVariant].variantId);
+            this.variants[this.selectedVariant]);
         },
         
         removeToCart() {
             this.$emit('remove-to-cart',
             this.variants[this.selectedVariant].variantId);
-        }, 
+        },
+
+        addToCount() {
+            this.$emit('add-to-count');
+        },
+
+        removeToCount() {
+            this.$emit('remove-to-count');
+        },
                 
         updateProduct(index) {  
             this.selectedVariant = index;
-            console.log(index);
         }
     },
     computed: {
@@ -299,20 +293,45 @@ let app = new Vue({
     data: {
     premium: true,
     cart: [],
+    // count: 1
     },
     methods: {
     updateCart(id) {
-        this.cart.push(id);
+        let count = 1;
+        let name = id.variantId
+        let finder = this.cart.find(function(e) {
+            return e.name === name;
+        })
+        if(finder){
+            let ell = this.cart.find(function(e) {
+                return e.name === name;
+            })
+            ell.count++;
+        }
+        else{
+            this.cart.push({name , count});
+        }
         },
     
     removeCart(id){
         this.cart.shift(id)
+    },
+
+    removeCount(id) {
+        id.count--
+        if(id.count < 0){
+            this.cart.shift(id)
+        }
+    },
+
+    addCount(id) {
+        id.count++
     }
-},
+    },
 })
 
 
-    
+
     
  
     

@@ -13,9 +13,22 @@
 <body>
    <div id="app">
       <div class="cart">
-         <p>Cart({{ cart.length }})</p>
+         <p class="Maincart">Cart({{ cart.length }})</p>
+
+         <div v-for="good in cart" class="goodCart">
+            <p>Cart:{{ good.name }}</p>
+            <p>Count:{{ good.count }}</p>
+            <button v-on:click="addCount(good)" class="cartButton">+</button>
+            <button v-on:click="removeCount(good)" class="cartButton">-</button>
+         </div>
+
       </div>
-      <product :premium="premium" @add-to-cart="updateCart"  @remove-to-cart="removeCart"></product>
+      <product :premium="premium" 
+      @add-to-cart="updateCart"  
+      @remove-to-cart="removeCart"
+      @add-to-count="addCount"  
+      @remove-to-count="removeCount"
+      ></product>
       </div>
       
 </body>
