@@ -319,7 +319,7 @@ let app = new Vue({
 
     removeCount(id) {
         id.count--
-        if(id.count < 0){
+        if(id.count <= 0){
             this.cart.shift(id)
         }
     },
